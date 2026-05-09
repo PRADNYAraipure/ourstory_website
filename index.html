@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bittu's Birthday Story</title>
   <link rel="stylesheet" href="style.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -119,7 +116,7 @@
       <h1 class="hero-title-main">Bittu’s Story</h1>
 
       <p class="hero-subtitle">
-        A birthday special series for the boy who is deeply in love with cinema
+        A special birthday story for the boy who is deeply in love with cinema.
       </p>
 
       <p class="hero-desc">
@@ -214,7 +211,7 @@
 
   <!-- Continued -->
   <section class="coming-soon-grid more-section">
-    <h2 class="section-title section-title-continued">TO BE CONTINUED…</h2>
+    <h2 class="section-title">TO BE CONTINUED…</h2>
 
     <div class="coming-card">
       <div class="coming-thumb">
@@ -223,7 +220,6 @@
           <canvas id="scratchCanvas"></canvas>
         </div>
       </div>
-
       <h3>Forever Ongoing</h3>
       <p>I’ll celebrate you today, tomorrow and forever. ❤️</p>
     </div>
@@ -266,7 +262,14 @@
         burst.style.left = `${10 + Math.random() * 80}%`;
         burst.style.top = `${8 + Math.random() * 48}%`;
 
-        const colors = ["#ffffff", "#ffe08a", "#ffd700", "#ffb347", "#7df9ff", "#b8cfff"];
+        const colors = [
+          "#ffffff",
+          "#ffe08a",
+          "#ffd700",
+          "#ffb347",
+          "#7df9ff",
+          "#b8cfff"
+        ];
 
         const core = document.createElement("span");
         core.className = "firework-core";
@@ -383,7 +386,7 @@
 
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 24, 0, Math.PI * 2);
+        ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
         ctx.fill();
       }
 
