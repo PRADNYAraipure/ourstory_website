@@ -891,4 +891,10 @@ body{
   .intro-beam{
     width:88vw;
   }
+  .ep-thumb.ep1-thumb,
+   .ep1-thumb{
+      background:
+    linear-gradient(135deg, rgba(229,9,20,0.45), rgba(0,0,0,0.50)),
+    url("./images/ep1.jpg") center/cover no-repeat !important;
+}
 }
