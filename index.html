@@ -116,7 +116,7 @@
       <h1 class="hero-title-main">Bittu’s Story</h1>
 
       <p class="hero-subtitle">
-        A special birthday story for the boy who is deeply in love with cinema.
+        A special birthday series for the boy who is deeply in love with cinema.
       </p>
 
       <p class="hero-desc">
@@ -213,10 +213,18 @@
   <section class="coming-soon-grid more-section">
     <h2 class="section-title">TO BE CONTINUED…</h2>
 
-    <div class="coming-card">
-      <div class="coming-thumb">
-        <span class="lock-icon">♾️</span>
-      </div>
+    <div class="coming-card" onclick="openImagePopup('./images/ep3.jpg')">
+    <div class="coming-thumb">
+  <div class="scratch-card" id="scratchCard">
+    <img 
+  src="./images/ep3.jpg" 
+  alt="Forever Ongoing" 
+  class="scratch-image"
+  onclick="openImagePopup(this.src)"
+/>
+    <canvas id="scratchCanvas"></canvas>
+  </div>
+</div>
       <h3>Forever Ongoing</h3>
       <p>I’ll celebrate you today, tomorrow and forever. ❤️</p>
     </div>
@@ -325,6 +333,167 @@
       }, 1700);
     }
   </script>
+  <script>
+  const scratchCard = document.getElementById("scratchCard");
+  const scratchCanvas = document.getElementById("scratchCanvas");
 
+  if (scratchCard && scratchCanvas) {
+    const ctx = scratchCanvas.getContext("2d", { willReadFrequently: true });
+
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function resizeScratchCanvas() {
+      const rect = scratchCard.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      scratchCanvas.width = rect.width * dpr;
+      scratchCanvas.height = rect.height * dpr;
+      scratchCanvas.style.width = rect.width + "px";
+      scratchCanvas.style.height = rect.height + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawScratchLayer(rect.width, rect.height);
+    }
+
+    function drawScratchLayer(w, h) {
+      const gradient = ctx.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0, "#f3a62f");
+      gradient.addColorStop(1, "#ef9f24");
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = "rgba(221,113,20,0.55)";
+
+      const dots = [
+        [w * 0.12, h * 0.22], [w * 0.28, h * 0.14], [w * 0.63, h * 0.18],
+        [w * 0.84, h * 0.24], [w * 0.15, h * 0.72], [w * 0.56, h * 0.69],
+        [w * 0.76, h * 0.63]
+      ];
+
+      dots.forEach(([x, y]) => {
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.font = "bold 44px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      ctx.textAlign = "center";
+ctx.fillStyle = "rgba(255,255,255,0.96)";
+
+ctx.font = "bold 18px Arial";
+ctx.textBaseline = "middle";
+ctx.fillText("Scratch to Reveal", w / 2, h / 2 - 10);
+
+ctx.font = "16px Arial";
+ctx.fillStyle = "rgba(255,255,255,0.88)";
+ctx.fillText("Something Special ❤️", w / 2, h / 2 + 16);
+    }
+
+    function getPointerPos(e) {
+      const rect = scratchCanvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
+    function startScratch(e) {
+      isDrawing = true;
+      const pos = getPointerPos(e);
+      lastX = pos.x;
+      lastY = pos.y;
+
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 14, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (scratchCanvas.setPointerCapture) {
+        scratchCanvas.setPointerCapture(e.pointerId);
+      }
+    }
+
+    function moveScratch(e) {
+      if (!isDrawing) return;
+      e.preventDefault();
+
+      const pos = getPointerPos(e);
+
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.lineWidth = 28;
+
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, 14, 0, Math.PI * 2);
+      ctx.fill();
+
+      lastX = pos.x;
+      lastY = pos.y;
+    }
+
+    function endScratch() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      checkScratchPercent();
+    }
+
+    function checkScratchPercent() {
+      const imageData = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+      const pixels = imageData.data;
+      let transparentPixels = 0;
+
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] < 40) transparentPixels++;
+      }
+
+      const totalPixels = scratchCanvas.width * scratchCanvas.height;
+      const percent = (transparentPixels / totalPixels) * 100;
+
+      if (percent > 38) {
+        scratchCanvas.classList.add("hidden");
+      }
+    }
+
+    scratchCanvas.addEventListener("pointerdown", startScratch);
+    scratchCanvas.addEventListener("pointermove", moveScratch);
+    scratchCanvas.addEventListener("pointerup", endScratch);
+    scratchCanvas.addEventListener("pointercancel", endScratch);
+    scratchCanvas.addEventListener("pointerleave", endScratch);
+
+    window.addEventListener("load", resizeScratchCanvas);
+    window.addEventListener("resize", resizeScratchCanvas);
+  }
+</script>
+<div class="image-popup" id="imagePopup" onclick="closeImagePopup()">
+  <span class="popup-close">×</span>
+  <img id="popupImg" src="" alt="Preview" onclick="event.stopPropagation()" />
+</div>
+<script>
+  function openImagePopup(src){
+    const popup = document.getElementById("imagePopup");
+    const popupImg = document.getElementById("popupImg");
+
+    popupImg.src = src;
+    popup.classList.add("active");
+  }
+
+  function closeImagePopup(){
+    document.getElementById("imagePopup").classList.remove("active");
+  }
+</script>
 </body>
 </html>
