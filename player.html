@@ -14,7 +14,7 @@
 
   <div class="top-bar">
     <button class="back-btn" onclick="goBack()">← Back</button>
-    <div class="logo">The Bakchod Bittu</div>
+    <div class="logo" id="video-title-logo">The Birthday Boy Era</div>
     <div class="ep-badge" id="ep-badge">Episode 1</div>
   </div>
 
@@ -76,7 +76,7 @@
     <h3 class="next-card-label">Next Episode</h3>
 
     <div class="next-card-content" id="next-card-inner" onclick="goToNext()">
-      <div class="next-thumb" id="next-thumb"></div>
+      <div class="next-thumb"></div>
 
       <div class="next-details">
         <span class="next-ep-tag" id="next-ep-tag">Episode 2</span>
@@ -93,7 +93,7 @@
       1: {
         title: "The Birthday Boy Era",
         desc: "The story of him — before us. The moments, the memories, and the man who was becoming someone extraordinary.",
-        video: "https://drive.google.com/file/d/18PQMPFV-HrXua5Z4FsEpRZVwbkABRkzW/preview",
+        video: "videos/episode1i.mp4",
         thumb: "ep1-thumb",
         badge: "Episode 1",
         short: "E1"
@@ -101,7 +101,7 @@
       2: {
         title: "Now & Forever",
         desc: "Where love becomes home. Every adventure, every laugh, every milestone — our story written together.",
-        video: "https://drive.google.com/file/d/1gob3U_G8y-9jZ0mkRJn9uXj0Q1qHifIt/preview",
+        video: "videos/episode2.mp4",
         thumb: "ep2-thumb",
         badge: "Episode 2",
         short: "E2"
@@ -110,7 +110,7 @@
 
     const params = new URLSearchParams(window.location.search);
     const epNum = parseInt(params.get("ep")) || 1;
-    const ep = episodes[epNum];
+    const ep = episodes[epNum] || episodes[1];
     const nextNum = epNum + 1;
     const nextEp = episodes[nextNum];
 
@@ -121,16 +121,26 @@
 
     document.getElementById("ep-badge").textContent = ep.badge;
     document.getElementById("ep-main-title").textContent = ep.title;
+    document.getElementById("video-title-logo").textContent = ep.title;
     document.getElementById("ep-main-desc").textContent = ep.desc;
     document.getElementById("ep-num-big").textContent = ep.short;
     document.title = `${ep.badge} - ${ep.title}`;
 
+    video.style.display = "block";
+    noVideo.style.display = "none";
     video.src = ep.video;
+    video.load();
+    video.addEventListener("canplay", () => {
+  video.play().catch(() => {});
+});
 
     video.addEventListener("error", () => {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
       video.style.display = "none";
       noVideo.style.display = "flex";
-      noVideoMsg.innerHTML = `Add your video as <code>videos/episode${epNum}.mp4</code>`;
+      noVideoMsg.innerHTML = `Video not found. Add your file as <code>videos/episode${epNum}.mp4</code>`;
     });
 
     video.addEventListener("loadeddata", () => {
