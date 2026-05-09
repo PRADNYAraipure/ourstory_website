@@ -14,7 +14,7 @@
 
   <div class="top-bar">
     <button class="back-btn" onclick="goBack()">← Back</button>
-    <div class="logo">The Bakchod Bittu</div>
+    <div class="logo" id="video-title-logo">The Birthday Boy Era</div>
     <div class="ep-badge" id="ep-badge">Episode 1</div>
   </div>
 
@@ -121,6 +121,7 @@
 
     document.getElementById("ep-badge").textContent = ep.badge;
     document.getElementById("ep-main-title").textContent = ep.title;
+    document.getElementById("video-title-logo").textContent = ep.title;
     document.getElementById("ep-main-desc").textContent = ep.desc;
     document.getElementById("ep-num-big").textContent = ep.short;
     document.title = `${ep.badge} - ${ep.title}`;
