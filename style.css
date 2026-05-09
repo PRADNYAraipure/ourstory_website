@@ -655,8 +655,8 @@ body{
 
 .ep1-thumb{
   background:
-    linear-gradient(135deg, rgba(229,9,20,0.45), rgba(0,0,0,0.55)),
-    url('images/ep1.jpg') center/cover no-repeat;
+    linear-gradient(135deg, rgba(229,9,20,0.45), rgba(0,0,0,0.45)),
+    url('images/ep1.jpg') center/cover no-repeat !important;
 }
 
 .ep2-thumb{
