@@ -897,4 +897,80 @@ body{
     linear-gradient(135deg, rgba(229,9,20,0.45), rgba(0,0,0,0.50)),
     url("./images/ep1.jpg") center/cover no-repeat !important;
 }
+
 }
+/* SCRATCH CARD */
+.scratch-card{
+  position:relative;
+  width:100%;
+  height:110px;
+  overflow:hidden;
+}
+
+.scratch-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+#scratchCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  cursor:grab;
+  touch-action:none;
+  display:block;
+}
+
+#scratchCanvas.hidden{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.45s ease;
+}
+.image-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.88);
+  z-index:999999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.image-popup.active{
+  display:flex;
+}
+
+.image-popup img{
+  max-width:92vw;
+  max-height:88vh;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 0 40px rgba(229,9,20,0.45);
+  animation:popZoom 0.28s ease;
+}
+
+.popup-close{
+  position:absolute;
+  top:24px;
+  right:34px;
+  color:white;
+  font-size:42px;
+  cursor:pointer;
+  z-index:2;
+}
+
+@keyframes popZoom{
+  from{
+    transform:scale(0.75);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
