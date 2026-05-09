@@ -655,8 +655,8 @@ body{
 
 .ep1-thumb{
   background:
-    linear-gradient(135deg, rgba(229,9,20,0.5), rgba(0,0,0,0.5)),
-    url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80') center/cover no-repeat;
+    linear-gradient(135deg, rgba(229,9,20,0.45), rgba(0,0,0,0.55)),
+    url('images/ep1.jpg') center/cover no-repeat;
 }
 
 .ep2-thumb{
