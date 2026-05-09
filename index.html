@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bittu's Birthday Story</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Cinematic Intro -->
+  <div class="birthday-intro" id="birthdayIntro">
+    <div class="intro-slide active">
+      <div class="intro-bg-layer"></div>
+      <div class="intro-particles"></div>
+      <div class="intro-beam"></div>
+      <div class="intro-corner corner-top-left"></div>
+      <div class="intro-corner corner-bottom-right"></div>
+
+      <div class="intro-content">
+        <h1 class="intro-title two-line">
+          <span class="silver">Hey</span><br />
+          <span class="red">You !!</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="intro-slide">
+      <div class="intro-bg-layer"></div>
+      <div class="intro-particles"></div>
+      <div class="intro-beam"></div>
+      <div class="intro-corner corner-top-left"></div>
+      <div class="intro-corner corner-bottom-right"></div>
+
+      <div class="intro-content">
+        <h1 class="intro-title two-line">
+          <span class="silver">It’s Your</span><br />
+          <span class="silver">Birthday.</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="intro-slide no-beam">
+      <div class="intro-bg-layer"></div>
+      <div class="intro-particles"></div>
+      <div class="intro-corner corner-top-left"></div>
+      <div class="intro-corner corner-bottom-right"></div>
+
+      <div class="intro-content">
+        <h1 class="intro-title three-line">
+          <span class="silver">Happy</span><br />
+          <span class="red">Birthday</span><br />
+          <span class="silver">Baby.</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="intro-slide">
+      <div class="intro-bg-layer"></div>
+      <div class="intro-particles"></div>
+      <div class="intro-beam"></div>
+      <div class="intro-corner corner-top-left"></div>
+      <div class="intro-corner corner-bottom-right"></div>
+
+      <div class="intro-content">
+        <h1 class="intro-title two-line">
+          <span class="silver">Welcome to</span><br />
+          <span class="red">Chapter 30.</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="intro-slide">
+      <div class="intro-bg-layer"></div>
+      <div class="intro-particles"></div>
+      <div class="intro-beam"></div>
+      <div class="intro-corner corner-top-left"></div>
+      <div class="intro-corner corner-bottom-right"></div>
+
+      <div class="intro-content">
+        <h1 class="intro-title two-line">
+          <span class="silver">And it</span><br />
+          <span class="silver">Begins now.</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="intro-fireworks" id="introFireworks"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">The Bittu Chronicles</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#episodes">Episodes</a>
+      <span class="dot">•</span>
+      <span class="birthday-badge">Birthday Special</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-photo-glow"></div>
+
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-soft"></div>
+      <img src="hero-photo.jpg" alt="Bittu" class="hero-photo" />
+    </div>
+
+    <div class="hero-content-main">
+      <span class="hero-tag">Birthday Special</span>
+
+      <h1 class="hero-title-main">Bittu’s Story</h1>
+
+      <p class="hero-subtitle">
+        A birthday special series for the boy who is fond of cinema
+      </p>
+
+      <p class="hero-desc">
+        Happy Birthday Baby 🎂
+        <br /><br />
+        Thank you for becoming my comfort person, my safest space, my daily happiness,
+        and the best part of all my ordinary days.
+        <br /><br />
+        I hope this year gives you everything you deserve — peace, success, happiness,
+        good health, and me irritating you forever ❤️
+      </p>
+
+      <div class="hero-buttons">
+        <button type="button" class="btn btn-play" onclick="window.location.href='player.html?ep=1'">
+          ▶ Play Episode 1
+        </button>
+
+        <button type="button" class="btn btn-info" onclick="document.getElementById('episodes').scrollIntoView({ behavior: 'smooth' })">
+          More Info
+        </button>
+      </div>
+
+      <div class="hero-meta">
+        <span class="meta-badge">HD</span>
+        <span>2 Episodes</span>
+        <span>Romantic</span>
+        <span>Birthday Gift</span>
+      </div>
+    </div>
+
+    <div class="hero-fade"></div>
+  </header>
+
+  <!-- Episodes -->
+  <section class="more-section" id="episodes">
+    <h2 class="section-title">Episodes</h2>
+
+    <div class="episodes-grid">
+      <article class="episode-card" onclick="window.location.href='player.html?ep=1'">
+        <div class="ep-thumb ep1-thumb">
+          <div class="play-btn">▶</div>
+          <div class="ep-ribbon">E1</div>
+        </div>
+
+        <div class="ep-info">
+          <div class="ep-header">
+            <span class="ep-label">Episode 1</span>
+            <span class="ep-duration">Special</span>
+          </div>
+
+          <h3 class="ep-title">The Birthday Boy Era</h3>
+
+          <p class="ep-desc">
+            The story of him — before us. The moments, the memories, and the man who
+            was becoming someone extraordinary.
+          </p>
+
+          <div class="ep-tags">
+            <span class="tag">Memories</span>
+            <span class="tag">Love</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="episode-card" onclick="window.location.href='player.html?ep=2'">
+        <div class="ep-thumb ep2-thumb">
+          <div class="play-btn">▶</div>
+          <div class="ep-ribbon">E2</div>
+        </div>
+
+        <div class="ep-info">
+          <div class="ep-header">
+            <span class="ep-label">Episode 2</span>
+            <span class="ep-duration">Forever</span>
+          </div>
+
+          <h3 class="ep-title">Now & Forever</h3>
+
+          <p class="ep-desc">
+            Where love becomes home. Every adventure, every laugh, every milestone —
+            our story written together.
+          </p>
+
+          <div class="ep-tags">
+            <span class="tag">Forever</span>
+            <span class="tag">Us</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Continued -->
+  <section class="coming-soon-grid more-section">
+    <h2 class="section-title">TO BE CONTINUED…</h2>
+
+    <div class="coming-card">
+      <div class="coming-thumb">
+        <span class="lock-icon">♾️</span>
+      </div>
+      <h3>Forever Ongoing</h3>
+      <p>I’ll celebrate you today, tomorrow and forever. ❤️</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">The Bittu Chronicles</div>
+    <p>A story still being written. ❤️</p>
+  </footer>
+
+  <script>
+    const intro = document.getElementById("birthdayIntro");
+    const seenIntro = sessionStorage.getItem("seenBirthdayIntro");
+
+    if (seenIntro) {
+      intro.style.display = "none";
+    } else {
+      sessionStorage.setItem("seenBirthdayIntro", "true");
+
+      const slides = document.querySelectorAll(".intro-slide");
+      const fireworksRoot = document.getElementById("introFireworks");
+
+      let current = 0;
+      let fireworksInterval = null;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+        });
+
+        if (index >= 2 && !fireworksInterval) {
+          fireworksInterval = setInterval(createRealisticBurst, 650);
+        }
+      }
+
+      function createRealisticBurst() {
+        const burst = document.createElement("div");
+        burst.className = "firework-burst";
+        burst.style.left = `${10 + Math.random() * 80}%`;
+        burst.style.top = `${8 + Math.random() * 48}%`;
+
+        const colors = [
+          "#ffffff",
+          "#ffe08a",
+          "#ffd700",
+          "#ffb347",
+          "#7df9ff",
+          "#b8cfff"
+        ];
+
+        const core = document.createElement("span");
+        core.className = "firework-core";
+        burst.appendChild(core);
+
+        const particleCount = 34;
+
+        for (let i = 0; i < particleCount; i++) {
+          const spark = document.createElement("span");
+          spark.className = "firework-spark";
+
+          const angle = (Math.PI * 2 * i) / particleCount + (Math.random() * 0.18);
+          const distance = 45 + Math.random() * 120;
+          const x = Math.cos(angle) * distance;
+          const y = Math.sin(angle) * distance;
+
+          spark.style.setProperty("--x", `${x}px`);
+          spark.style.setProperty("--y", `${y}px`);
+          spark.style.setProperty("--rot", `${angle}rad`);
+          spark.style.color = colors[Math.floor(Math.random() * colors.length)];
+          spark.style.animationDelay = `${Math.random() * 0.08}s`;
+
+          burst.appendChild(spark);
+        }
+
+        fireworksRoot.appendChild(burst);
+
+        setTimeout(() => {
+          burst.remove();
+        }, 1800);
+      }
+
+      showSlide(0);
+
+      const interval = setInterval(() => {
+        current++;
+
+        if (current < slides.length) {
+          showSlide(current);
+        } else {
+          clearInterval(interval);
+
+          setTimeout(() => {
+            if (fireworksInterval) {
+              clearInterval(fireworksInterval);
+            }
+
+            intro.style.transition = "opacity 1s ease";
+            intro.style.opacity = "0";
+
+            setTimeout(() => {
+              intro.style.display = "none";
+            }, 1000);
+          }, 1200);
+        }
+      }, 1700);
+    }
+  </script>
+
+</body>
+</html>

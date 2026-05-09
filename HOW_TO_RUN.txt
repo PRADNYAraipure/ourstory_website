@@ -1,0 +1,19 @@
+HOW TO RUN THIS WEBSITE
+
+1. Unzip the folder.
+2. Open index.html in Chrome/Safari.
+3. Keep these files in the same folder:
+   - index.html
+   - style.css
+   - player.html
+   - player.css
+   - videos folder
+
+HOW TO ADD VIDEOS
+
+Put your videos inside the videos folder with these exact names:
+
+videos/episode1.mp4
+videos/episode2.mp4
+
+Then open index.html and click Play Episode 1.

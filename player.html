@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HisStory+ Player</title>
+  <link rel="stylesheet" href="player.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <div class="top-bar">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="logo">The Bakchod Bittu</div>
+    <div class="ep-badge" id="ep-badge">Episode 1</div>
+  </div>
+
+  <div class="video-container">
+    <video id="main-video" controls playsinline preload="auto"></video>
+
+    <div class="no-video" id="no-video">
+      <div class="no-video-icon">🎬</div>
+      <h2>Video Coming Soon</h2>
+      <p id="no-video-msg">
+        Add your video file to the <code>videos/</code> folder.
+      </p>
+    </div>
+
+    <div class="tbc-overlay" id="tbc-overlay">
+      <div class="tbc-content">
+        <div class="tbc-label">Continue Watching</div>
+        <span class="tbc-dots">•••</span>
+        <div class="tbc-bar"></div>
+
+        <div class="next-episode" id="next-episode-info">
+          <span class="next-label" id="next-ep-label">Up Next</span>
+          <span class="next-title" id="next-ep-title">
+            Episode 2 — Now & Forever
+          </span>
+        </div>
+
+        <div class="tbc-actions">
+          <button class="tbc-btn tbc-next" id="tbc-next-btn" onclick="goToNext()">
+            Watch Next Episode
+          </button>
+          <button class="tbc-btn tbc-replay" onclick="replayVideo()">
+            ↻ Replay
+          </button>
+          <button class="tbc-btn tbc-home" onclick="goHome()">
+            ♡ All Episodes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="confetti-area" id="confetti-area"></div>
+  </div>
+
+  <div class="ep-info-bar">
+    <div class="ep-info-left">
+      <h1 class="ep-main-title" id="ep-main-title">The Birthday Boy Era</h1>
+      <p class="ep-main-desc" id="ep-main-desc">
+        The story of him — before us.
+      </p>
+    </div>
+
+    <div class="ep-info-right">
+      <div class="ep-number-big" id="ep-num-big">E1</div>
+    </div>
+  </div>
+
+  <div class="next-card" id="next-card">
+    <h3 class="next-card-label">Next Episode</h3>
+
+    <div class="next-card-content" id="next-card-inner" onclick="goToNext()">
+      <div class="next-thumb" id="next-thumb"></div>
+
+      <div class="next-details">
+        <span class="next-ep-tag" id="next-ep-tag">Episode 2</span>
+        <h4 id="next-card-title">Now & Forever</h4>
+        <p id="next-ep-desc">Where love becomes home.</p>
+      </div>
+
+      <div class="next-play">▶</div>
+    </div>
+  </div>
+
+  <script>
+    const episodes = {
+      1: {
+        title: "The Birthday Boy Era",
+        desc: "The story of him — before us. The moments, the memories, and the man who was becoming someone extraordinary.",
+        video: "https://drive.google.com/file/d/18PQMPFV-HrXua5Z4FsEpRZVwbkABRkzW/preview",
+        thumb: "ep1-thumb",
+        badge: "Episode 1",
+        short: "E1"
+      },
+      2: {
+        title: "Now & Forever",
+        desc: "Where love becomes home. Every adventure, every laugh, every milestone — our story written together.",
+        video: "https://drive.google.com/file/d/1gob3U_G8y-9jZ0mkRJn9uXj0Q1qHifIt/preview",
+        thumb: "ep2-thumb",
+        badge: "Episode 2",
+        short: "E2"
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const epNum = parseInt(params.get("ep")) || 1;
+    const ep = episodes[epNum];
+    const nextNum = epNum + 1;
+    const nextEp = episodes[nextNum];
+
+    const video = document.getElementById("main-video");
+    const noVideo = document.getElementById("no-video");
+    const tbcOverlay = document.getElementById("tbc-overlay");
+    const noVideoMsg = document.getElementById("no-video-msg");
+
+    document.getElementById("ep-badge").textContent = ep.badge;
+    document.getElementById("ep-main-title").textContent = ep.title;
+    document.getElementById("ep-main-desc").textContent = ep.desc;
+    document.getElementById("ep-num-big").textContent = ep.short;
+    document.title = `${ep.badge} - ${ep.title}`;
+
+    video.src = ep.video;
+
+    video.addEventListener("error", () => {
+      video.style.display = "none";
+      noVideo.style.display = "flex";
+      noVideoMsg.innerHTML = `Add your video as <code>videos/episode${epNum}.mp4</code>`;
+    });
+
+    video.addEventListener("loadeddata", () => {
+      video.style.display = "block";
+      noVideo.style.display = "none";
+    });
+
+    video.addEventListener("ended", () => {
+      showTBC();
+    });
+
+    if (nextEp) {
+      document.getElementById("next-ep-title").textContent = `Episode ${nextNum} — ${nextEp.title}`;
+      document.getElementById("next-card-title").textContent = nextEp.title;
+      document.getElementById("next-ep-tag").textContent = `Episode ${nextNum}`;
+      document.getElementById("next-ep-desc").textContent = nextEp.desc;
+      document.getElementById("next-card-inner").classList.add(nextEp.thumb);
+    } else {
+      document.getElementById("next-card").style.display = "none";
+      document.getElementById("next-episode-info").style.display = "none";
+      document.getElementById("tbc-next-btn").style.display = "none";
+    }
+
+    function showTBC() {
+      tbcOverlay.classList.add("active");
+      launchConfetti();
+    }
+
+    function goToNext() {
+      if (nextEp) {
+        window.location.href = `player.html?ep=${nextNum}`;
+      }
+    }
+
+    function replayVideo() {
+      tbcOverlay.classList.remove("active");
+      video.currentTime = 0;
+      video.play();
+    }
+
+    function goHome() {
+      window.location.href = "index.html#episodes";
+    }
+
+    function goBack() {
+      window.location.href = "index.html#episodes";
+    }
+
+    function launchConfetti() {
+      const area = document.getElementById("confetti-area");
+      area.innerHTML = "";
+
+      const colors = ["#E50914", "#F5C518", "#ffffff", "#ff6b35"];
+
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width = `${Math.random() * 8 + 4}px`;
+        piece.style.height = `${Math.random() * 8 + 4}px`;
+        piece.style.animationDelay = `${Math.random() * 2}s`;
+        piece.style.animationDuration = `${Math.random() * 2 + 2}s`;
+        piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+        area.appendChild(piece);
+      }
+    }
+  </script>
+
+</body>
+</html>
