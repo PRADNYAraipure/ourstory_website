@@ -19,7 +19,7 @@
   </div>
 
   <div class="video-container">
-    <video id="main-video" controls playsinline preload="metadata"></video>
+    <video id="main-video" controls playsinline preload="auto"></video>
 
     <div class="no-video" id="no-video">
       <div class="no-video-icon">🎬</div>
@@ -129,6 +129,9 @@
     noVideo.style.display = "none";
     video.src = ep.video;
     video.load();
+    video.addEventListener("canplay", () => {
+  video.play().catch(() => {});
+});
 
     video.addEventListener("error", () => {
       video.pause();
