@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bittu's Birthday Story</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 </head>
 <body>
 
@@ -116,7 +119,7 @@
       <h1 class="hero-title-main">Bittu’s Story</h1>
 
       <p class="hero-subtitle">
-        A special birthday series for the boy who is deeply in love with cinema
+        A birthday special series for the boy who is deeply in love with cinema
       </p>
 
       <p class="hero-desc">
@@ -211,12 +214,16 @@
 
   <!-- Continued -->
   <section class="coming-soon-grid more-section">
-    <h2 class="section-title">TO BE CONTINUED…</h2>
+    <h2 class="section-title section-title-continued">TO BE CONTINUED…</h2>
 
     <div class="coming-card">
       <div class="coming-thumb">
-        <span class="lock-icon">♾️</span>
+        <div class="scratch-card" id="scratchCard">
+          <img src="images/forever-photo.jpg" alt="Forever Ongoing" class="scratch-image" />
+          <canvas id="scratchCanvas"></canvas>
+        </div>
       </div>
+
       <h3>Forever Ongoing</h3>
       <p>I’ll celebrate you today, tomorrow and forever. ❤️</p>
     </div>
@@ -259,14 +266,7 @@
         burst.style.left = `${10 + Math.random() * 80}%`;
         burst.style.top = `${8 + Math.random() * 48}%`;
 
-        const colors = [
-          "#ffffff",
-          "#ffe08a",
-          "#ffd700",
-          "#ffb347",
-          "#7df9ff",
-          "#b8cfff"
-        ];
+        const colors = ["#ffffff", "#ffe08a", "#ffd700", "#ffb347", "#7df9ff", "#b8cfff"];
 
         const core = document.createElement("span");
         core.className = "firework-core";
@@ -323,6 +323,115 @@
           }, 1200);
         }
       }, 1700);
+    }
+
+    const scratchCard = document.getElementById("scratchCard");
+    const scratchCanvas = document.getElementById("scratchCanvas");
+
+    if (scratchCard && scratchCanvas) {
+      const ctx = scratchCanvas.getContext("2d", { willReadFrequently: true });
+      let isDrawing = false;
+
+      function resizeScratchCanvas() {
+        scratchCanvas.width = scratchCard.offsetWidth;
+        scratchCanvas.height = scratchCard.offsetHeight;
+        drawScratchLayer();
+      }
+
+      function drawScratchLayer() {
+        const gradient = ctx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
+        gradient.addColorStop(0, "#162057");
+        gradient.addColorStop(1, "#0a0f25");
+
+        ctx.globalCompositeOperation = "source-over";
+        ctx.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+
+        ctx.fillStyle = "rgba(255,255,255,0.88)";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `700 ${Math.max(46, scratchCanvas.width * 0.22)}px Arial`;
+        ctx.fillText("∞", scratchCanvas.width / 2, scratchCanvas.height / 2);
+      }
+
+      function getPointerPos(e) {
+        const rect = scratchCanvas.getBoundingClientRect();
+
+        let clientX;
+        let clientY;
+
+        if (e.touches && e.touches.length > 0) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
+
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      }
+
+      function scratch(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+
+        const pos = getPointerPos(e);
+
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 24, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function checkScratchPercent() {
+        const imageData = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+        const pixels = imageData.data;
+        let transparentPixels = 0;
+
+        for (let i = 3; i < pixels.length; i += 4) {
+          if (pixels[i] < 50) transparentPixels++;
+        }
+
+        const totalPixels = scratchCanvas.width * scratchCanvas.height;
+        const percent = (transparentPixels / totalPixels) * 100;
+
+        if (percent > 34) {
+          scratchCanvas.classList.add("hidden");
+        }
+      }
+
+      scratchCanvas.addEventListener("mousedown", () => {
+        isDrawing = true;
+      });
+
+      scratchCanvas.addEventListener("mousemove", scratch);
+
+      scratchCanvas.addEventListener("mouseup", () => {
+        isDrawing = false;
+        checkScratchPercent();
+      });
+
+      scratchCanvas.addEventListener("mouseleave", () => {
+        isDrawing = false;
+      });
+
+      scratchCanvas.addEventListener("touchstart", () => {
+        isDrawing = true;
+      }, { passive: false });
+
+      scratchCanvas.addEventListener("touchmove", scratch, { passive: false });
+
+      scratchCanvas.addEventListener("touchend", () => {
+        isDrawing = false;
+        checkScratchPercent();
+      });
+
+      window.addEventListener("load", resizeScratchCanvas);
+      window.addEventListener("resize", resizeScratchCanvas);
     }
   </script>
 
