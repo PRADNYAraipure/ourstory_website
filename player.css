@@ -277,11 +277,12 @@ body{
   flex-shrink:0;
 }
 
+.next-card-content.ep2-thumb,
 .next-card-content.ep2-thumb .next-thumb,
 .ep2-thumb{
   background:
-    linear-gradient(135deg, rgba(245,197,24,0.5), rgba(229,9,20,0.5)),
-    url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&q=80') center/cover no-repeat;
+    linear-gradient(135deg, rgba(245,197,24,0.35), rgba(229,9,20,0.45)),
+    url("./images/ep2.jpg") center/cover no-repeat !important;
 }
 
 .next-details h4{
