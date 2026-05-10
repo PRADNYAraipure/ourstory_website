@@ -213,14 +213,14 @@
   <section class="coming-soon-grid more-section">
     <h2 class="section-title">TO BE CONTINUED…</h2>
 
-    <div class="coming-card" onclick="openImagePopup('./images/ep3.jpg')">
+    <div class="coming-card" id="comingCard">
     <div class="coming-thumb">
   <div class="scratch-card" id="scratchCard">
     <img 
   src="./images/ep3.jpg" 
   alt="Forever Ongoing" 
   class="scratch-image"
-  onclick="openImagePopup(this.src)"
+  
 />
     <canvas id="scratchCanvas"></canvas>
   </div>
@@ -463,9 +463,10 @@ ctx.fillText("Something Special ❤️", w / 2, h / 2 + 16);
       const totalPixels = scratchCanvas.width * scratchCanvas.height;
       const percent = (transparentPixels / totalPixels) * 100;
 
-      if (percent > 38) {
-        scratchCanvas.classList.add("hidden");
-      }
+     if (percent > 38) {
+      scratchCanvas.classList.add("hidden");
+      scratchCard.classList.add("scratch-done");
+    }
     }
 
     scratchCanvas.addEventListener("pointerdown", startScratch);
@@ -476,6 +477,11 @@ ctx.fillText("Something Special ❤️", w / 2, h / 2 + 16);
 
     window.addEventListener("load", resizeScratchCanvas);
     window.addEventListener("resize", resizeScratchCanvas);
+    scratchCard.addEventListener("click", function () {
+  if (scratchCard.classList.contains("scratch-done")) {
+    openImagePopup("./images/ep3.jpg");
+  }
+});
   }
 </script>
 <div class="image-popup" id="imagePopup" onclick="closeImagePopup()">
